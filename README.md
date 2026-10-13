@@ -1,32 +1,26 @@
-# Book Market Analysis: Web Scraping + Cleaning + Analysis + Plotly
+# Book Market Analysis: Web Scraping, Cleaning and Plotly
 
-Scrapes ~1,000 books from [books.toscrape.com](https://books.toscrape.com) (a practice site that allows scraping) with **Selenium + BeautifulSoup**, cleans the data with **pandas**, answers 4 business questions with `groupby`, and visualises the answers with **Plotly Express**.
+Scraped 1,000 books across 50 categories from books.toscrape.com (a practice site that allows scraping) using Selenium and BeautifulSoup. Cleaned the data with pandas, answered business questions with groupby, correlation and a t-test, and visualised the results with Plotly Express.
 
-## Questions answered
-1. Which categories have the most books?
-2. Which categories are the most/least expensive?
-3. Do higher-rated books cost more? (correlation + optional t-test)
-4. How are prices spread across budget / mid / premium bands?
+**Tools:** Python, Selenium, BeautifulSoup, pandas, Plotly Express, SciPy
 
-## Run it
-```bash
-pip install -r requirements.txt      # you also need Google Chrome installed
-jupyter notebook Book_Market_Analysis.ipynb
-```
-Run the cells top to bottom. Scraping takes a few minutes and saves `books_raw.csv`; later runs load that file.
+## Key findings
+- Nonfiction is the largest category with 110 books (14.1% of the 781 books in real categories).
+- Average prices range only from £31.41 (Food and Drink) to £39.79 (Travel).
+- Price and rating are unrelated: correlation 0.028; a t-test of 5-star vs 1-2 star books found no significant difference (p = 0.582).
+- 40.3% of books are over £40, 40.1% are £20 to £40, and 19.6% are under £20.
+- 219 books (21.9%) were in placeholder categories ("Default", "Add a comment") and were excluded from the category analysis.
 
-## Cleaning steps
-- Removed duplicate rows
-- Converted `price` from text (`£51.77`) to a number
-- Converted `rating` from words (`Three`) to numbers (3)
-- Dropped a column with a single constant value
-- Created a `price_band` column
-- Validated with `assert` checks, then saved `books_clean.csv`
+## Charts
+![Top categories](charts/top-10-categories-by-number-of-books.png)
+![Average price by category](charts/average-book-price-by-category-categorie.png)
+![Price distribution](charts/distribution-of-book-prices.png)
+![Price by rating](charts/book-price-by-star-rating.png)
+![Price vs rating by category](charts/categories-average-price-vs-average-rati.png)
+![Price bands](charts/share-of-books-by-price-band.png)
+
+## How to run
+Install the libraries with `pip install -r requirements.txt` (Google Chrome is also required), then open `Book_Market_Analysis.ipynb` and run the cells from top to bottom.
 
 ## Limitations
-Practice website: prices and ratings are not real market data, so treat the findings as a demonstration of method.
-
-## Resume bullets (fill the blanks from YOUR results)
-- Scraped **[N]** book records across **[N]** categories using Selenium and BeautifulSoup, handling pagination.
-- Cleaned the data in pandas (type conversion, duplicate removal, validation checks) and engineered a price-band feature.
-- Analysed price, rating and category patterns with groupby and correlation; built 6 interactive Plotly charts. Found **[one finding with a number]**.
+This is a practice website, so prices and ratings are not real market data. The findings describe this dataset only.
